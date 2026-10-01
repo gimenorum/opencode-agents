@@ -10,20 +10,41 @@ This repository provides a shared OpenCode configuration and a small set of reus
 
 ## Purpose
 
-The repository is intended to standardize OpenCode setup across multiple projects. Instead of copying the same configuration manually, you can run the installer script and apply the same agent setup to any project directory.
+This repository provides a reusable template for sharing OpenCode settings and sub-agent prompts across projects.
 
 ## Installation
 
-From any project directory:
+### macOS / Linux
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/gimenorum/opencode-agents/main/setup.sh | bash
 ```
 
-To install into a specific directory:
+To install into a specific directory
 
 ```bash
-curl -fsSL <URL> | bash -s ~/path/to/project
+curl -fsSL <URL> | bash -s <YourDirectory>
+```
+
+### Windows
+
+### powershell
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$script = (Invoke-WebRequest -UseBasicParsing 'https://raw.githubusercontent.com/gimenorum/opencode-agents/main/setup.ps1').Content; & ([scriptblock]::Create($script))"
+```
+
+To install into a specific directory
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$script = (Invoke-WebRequest -UseBasicParsing 'https://raw.githubusercontent.com/gimenorum/opencode-agents/main/setup.ps1').Content; & ([scriptblock]::Create($script)) -Destination '<YourDirectory>'"
+```
+
+### cmd
+
+```bat
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$script = (Invoke-WebRequest -UseBasicParsing 'https://raw.githubusercontent.com/gimenorum/opencode-agents/main/setup.ps1').Content; & ([scriptblock]::Create($script))"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$script = (Invoke-WebRequest -UseBasicParsing 'https://raw.githubusercontent.com/gimenorum/opencode-agents/main/setup.ps1').Content; & ([scriptblock]::Create($script)) -Destination '<YourDirectory>'"
 ```
 
 The script downloads the files listed in `FILES` and copies them into the destination directory, overwriting files with the same names while leaving unrelated files untouched.
@@ -35,12 +56,6 @@ The script downloads the files listed in `FILES` and copies them into the destin
 - `review`: code review focused on security, performance, maintainability, and edge cases
 - `general`: general multi-step implementation work
 - `design-fallback`: fallback design-only behavior when a quota-limited model is unavailable
-
-## Notes
-
-- The configuration uses OpenCode as the execution environment.
-- The installer is intentionally conservative: it fetches all files first and only installs them if all downloads succeed.
-- If a background OpenCode service is already running, restart it after installation if needed.
 
 ## License
 

@@ -1,32 +1,53 @@
 # OpenCode Agents
 
-このリポジトリは、共有したい OpenCode の設定と再利用可能なサブエージェント定義を、簡単にプロジェクトへ導入できるようにするためのものです。
+OpenCode Goの利用者向けのサブエージェント設定が含まれています。
 
-## このリポジトリに含まれるもの
+## 含まれているもの
 
-- `opencode.jsonc`: プロジェクト向けの OpenCode 設定
+- `opencode.jsonc`: プロジェクト向けのOpenCode設定
 - `setup.sh`: 対象プロジェクトへ設定を展開するインストーラ
 - `.opencode/agents/*.md`: 探索、調査、レビュー、実装、設計代替用のサブエージェント定義
 
 ## 目的
 
-複数のプロジェクトで OpenCode の設定を毎回手作業でコピーするのではなく、共通設定を一元管理し、1 回の実行で同じ環境を展開できるようにします。
+このリポジトリは、OpenCodeの設定やサブエージェント定義を複数のプロジェクトで再利用するためのテンプレートを提供します。
 
 ## インストール方法
 
-任意のプロジェクトディレクトリで次を実行します。
+### macOS/Linux
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/gimenorum/opencode-agents/main/setup.sh | bash
 ```
 
-特定のディレクトリに入れたい場合:
+特定のディレクトリにインストールしたい場合
 
 ```bash
-curl -fsSL <URL> | bash -s ~/path/to/project
+curl -fsSL <URL> | bash -s <YourDirectory>
 ```
 
-このスクリプトは `FILES` に定義されたファイルを取得し、対象ディレクトリへコピーします。既存の同名ファイルは上書きされますが、他のファイルはそのまま保持されます。
+### Windows
+
+#### powershell
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$script = (Invoke-WebRequest -UseBasicParsing 'https://raw.githubusercontent.com/gimenorum/opencode-agents/main/setup.ps1').Content; & ([scriptblock]::Create($script))"
+```
+
+特定のディレクトリにインストールしたい場合
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$script = (Invoke-WebRequest -UseBasicParsing 'https://raw.githubusercontent.com/gimenorum/opencode-agents/main/setup.ps1').Content; & ([scriptblock]::Create($script)) -Destination '<YourDirectory>'"
+```
+
+#### cmd
+
+```bat
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$script = (Invoke-WebRequest -UseBasicParsing 'https://raw.githubusercontent.com/gimenorum/opencode-agents/main/setup.ps1').Content; & ([scriptblock]::Create($script))"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$script = (Invoke-WebRequest -UseBasicParsing 'https://raw.githubusercontent.com/gimenorum/opencode-agents/main/setup.ps1').Content; & ([scriptblock]::Create($script)) -Destination '<YourDirectory>'"
+```
+
+このスクリプトは`FILES`に定義されたファイルを取得し、対象ディレクトリへコピーします。既存の同名ファイルは上書きされますが、他のファイルはそのまま保持されます。
 
 ## 含まれるエージェント
 
@@ -35,12 +56,6 @@ curl -fsSL <URL> | bash -s ~/path/to/project
 - `review`: セキュリティ、性能、保守性、エッジケースを重視したコードレビュー
 - `general`: 複数ステップの実装作業を担当する汎用エージェント
 - `design-fallback`: 利用枠制限時の設計専用フォールバック
-
-## 補足
-
-- 実行環境として OpenCode を前提にしています。
-- インストーラは安全側に寄っており、すべての取得が成功した場合のみ導入を実行します。
-- すでにバックグラウンドサービスが動いている場合は、必要に応じて再起動してください。
 
 ## ライセンス
 
