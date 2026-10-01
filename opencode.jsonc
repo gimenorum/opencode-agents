@@ -36,7 +36,7 @@
         "bash": "deny"
       }
     },
-    // システムエージェント。組み込みで primary かつ UI 非表示。目的は画面に出ない消費を最安モデルに固定することのみ。hidden フラグは mode: subagent 専用のため使わない。
+    // System agent. Built-in, primary, and hidden from the UI. Its purpose is only to keep non-visible consumption on the lowest-cost model. The hidden flag is not used here because it is only for mode: subagent.
     "title": {
       "mode": "primary",
       "model": "opencode-go/mimo-v2.6-flash"
